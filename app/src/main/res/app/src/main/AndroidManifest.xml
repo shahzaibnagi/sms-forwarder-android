@@ -7,11 +7,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="V-MAX AutoPay"
         android:theme="@style/Theme.VirtualMax"
         android:usesCleartextTraffic="true">
 
+        <!-- Full package name use kar rahe hain taake Android bilkul confuse na ho -->
         <activity
             android:name="com.virtualmax.smsforwarder.MainActivity"
             android:exported="true"
