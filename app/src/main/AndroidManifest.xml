@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Basic Permissions -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
+    <!-- Nayi Background & Network Permissions -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- Notification padhne ki Special Permission -->
     <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" tools:ignore="ProtectedPermissions" />
 
@@ -32,7 +36,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- Background Notification Reader Service -->
+        <!-- Notification Reader -->
         <service android:name="com.virtualmax.smsforwarder.NotificationReader"
             android:label="V-MAX Payment Listener"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
@@ -41,6 +45,10 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <!-- Keep Alive Foreground Guard -->
+        <service android:name="com.virtualmax.smsforwarder.KeepAliveService" 
+                 android:exported="false" />
 
     </application>
 </manifest>
