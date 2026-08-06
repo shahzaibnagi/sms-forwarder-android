@@ -1,227 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#050507"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_vertical"
+    android:background="#F5F5F5">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:text="V-MAX AutoPay"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Automated Payment Forwarder"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@android:drawable/ic_lock_idle_lock"
-                app:tint="#8B5CF6" />
+    <EditText
+        android:id="@+id/webhookUrlInput"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Enter Webhook / Pinggy URL"
+        android:background="#FFFFFF"
+        android:padding="12dp"
+        android:elevation="2dp"
+        android:layout_marginBottom="16dp"
+        android:inputType="textUri"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="16dp">
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="SAVE URL"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="V-MAX AUTOPAY"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:letterSpacing="0.05"/>
+    <Button
+        android:id="@+id/testBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="TEST API (SEND DUMMY DATA)"
+        android:backgroundTint="#2196F3"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pro SMS Webhook Engine"
-                    android:textSize="12sp"
-                    android:textColor="#8B5CF6"/>
-            </LinearLayout>
-        </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardMaster"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#12121A"
-            app:cardCornerRadius="20dp"
-            app:strokeWidth="1.5dp"
-            app:strokeColor="#2A2A3A"
-            android:layout_marginBottom="24dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Developed by Shahzaib Tech"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#888888"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="20dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvEngineStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Engine Offline"
-                        android:textColor="#888888"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Toggle to start/stop listening"
-                        android:textColor="#666666"
-                        android:textSize="12sp"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchEngine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:useMaterialThemeColors="false"
-                    app:thumbTint="#FFFFFF"
-                    app:trackTint="#3A3A4A"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#12121A"
-            app:cardCornerRadius="24dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#2A2A3A">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SERVER CONFIGURATION"
-                    android:textSize="12sp"
-                    android:textColor="#8B5CF6"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Webhook URL"
-                    app:boxStrokeColor="#8B5CF6"
-                    app:hintTextColor="#8B5CF6"
-                    app:boxBackgroundColor="#1A1A24"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_marginBottom="16dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etWebhookUrl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textUri"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Target Senders (Comma separated)"
-                    app:boxStrokeColor="#8B5CF6"
-                    app:hintTextColor="#8B5CF6"
-                    app:boxBackgroundColor="#1A1A24"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etSenders"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textColor="#FFFFFF"
-                        android:text="3737, 8558"
-                        android:textSize="14sp"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="24dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnTest"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="55dp"
-                        android:text="TEST API"
-                        app:strokeColor="#8B5CF6"
-                        android:textColor="#8B5CF6"
-                        app:cornerRadius="12dp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnSave"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
-                        android:layout_height="55dp"
-                        android:text="SAVE CONFIG"
-                        android:textStyle="bold"
-                        app:cornerRadius="12dp"
-                        app:backgroundTint="#8B5CF6" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SYSTEM LOGS"
-            android:textSize="12sp"
-            android:textColor="#666666"
-            android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tvLogs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="> Engine initialized...\n> Ready for configuration."
-            android:textColor="#10B981"
-            android:textSize="12sp"
-            android:fontFamily="monospace"
-            android:background="#0A0A0F"
-            android:padding="16dp"
-            android:minHeight="100dp"/>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
