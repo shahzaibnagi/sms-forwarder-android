@@ -13,8 +13,13 @@ class NotificationReader : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         val packageName = sbn.packageName
         
-        // Target Apps: JazzCash, Easypaisa, NayaPay, SadaPay
-        val targetApps = listOf("com.msys.jazzcash", "pk.com.telenor.phoenix", "com.nayapay.app", "pk.sadapay.app")
+        // 🚨 CORRECTED PLAY STORE PACKAGE NAMES
+        val targetApps = listOf(
+            "com.techlogix.mobilinkcustomer", // JazzCash (Real Name)
+            "pk.com.telenor.phoenix",         // Easypaisa
+            "com.nayapay.app",                // NayaPay
+            "com.sadapay.app"                 // SadaPay (Corrected)
+        )
         
         if (targetApps.contains(packageName)) {
             val extras = sbn.notification.extras
@@ -23,24 +28,18 @@ class NotificationReader : NotificationListenerService() {
             
             Log.d("VMAX_NOTIF", "Payment App: $packageName | Title: $title | Text: $text")
 
-            // App ka naam identify karein
             val appName = when(packageName) {
-                "com.msys.jazzcash" -> "JazzCash"
+                "com.techlogix.mobilinkcustomer" -> "JazzCash"
                 "pk.com.telenor.phoenix" -> "Easypaisa"
                 "com.nayapay.app" -> "NayaPay"
-                "pk.sadapay.app" -> "SadaPay"
+                "com.sadapay.app" -> "SadaPay"
                 else -> "Payment App"
             }
 
-            // SharedPreferences se Webhook URL read karein
             val prefs = getSharedPreferences("VMAX_PREFS", MODE_PRIVATE)
-            val savedUrl = prefs.getString("WEBHOOK_URL", "")
-            
-            // NOTE: Agar app ke UI mein URL save karne ka option properly set nahi hai 
-            // toh apni testing ke liye apna Pinggy URL yahan neeche paste kar dein:
-            val webhookUrl = if (savedUrl.isNullOrEmpty()) "YOUR_PINGGY_URL_HERE/api/sms-webhook" else savedUrl
+            val webhookUrl = prefs.getString("WEBHOOK_URL", "")
 
-            if (webhookUrl.isNotEmpty() && !webhookUrl.contains("YOUR_PINGGY_URL_HERE")) {
+            if (!webhookUrl.isNullOrEmpty()) {
                 thread {
                     try {
                         val url = URL(webhookUrl)
@@ -49,7 +48,6 @@ class NotificationReader : NotificationListenerService() {
                         conn.setRequestProperty("Content-Type", "application/json")
                         conn.doOutput = true
 
-                        // JSON Data Payload (Fake Server ki formatting ke mutabiq)
                         val jsonString = "{\"sender\": \"$appName (App)\", \"message\": \"$title - $text\"}"
 
                         OutputStreamWriter(conn.outputStream).use { os ->
@@ -61,13 +59,9 @@ class NotificationReader : NotificationListenerService() {
                         Log.e("VMAX_NOTIF", "Forwarding failed: ${e.message}")
                     }
                 }
-            } else {
-                Log.e("VMAX_NOTIF", "Webhook URL khali hai ya Pinggy URL update nahi kiya!")
             }
         }
     }
 
-    override fun onNotificationRemoved(sbn: StatusBarNotification) {
-        // Hamein notification remove hone se farq nahi parta, code ignore karega
-    }
+    override fun onNotificationRemoved(sbn: StatusBarNotification) {}
 }
