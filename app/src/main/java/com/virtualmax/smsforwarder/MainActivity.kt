@@ -1,14 +1,18 @@
 package com.virtualmax.smsforwarder
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.net.HttpURLConnection
 import java.net.URL
 import java.io.OutputStreamWriter
@@ -20,19 +24,44 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 1. Google Play Protect Bypass: Prominent Disclosure
+        // 1. Android 13+ ke liye Notification Permission Popup (Iski wajah se button gray tha)
+        requestNotificationPermission()
+
+        // 2. Google Play Protect Bypass: Prominent Disclosure
         showDisclaimerIfNeeded()
 
-        // 2. Start Background Keep-Alive Service
+        // 3. UI Controls Setup
+        setupUI()
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 101)
+            } else {
+                startKeepAliveService()
+            }
+        } else {
+            startKeepAliveService()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startKeepAliveService()
+        } else {
+            Toast.makeText(this, "Background guard needs this permission to stay active!", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun startKeepAliveService() {
         val serviceIntent = Intent(this, KeepAliveService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(serviceIntent)
         } else {
             startService(serviceIntent)
         }
-
-        // 3. UI Controls Setup
-        setupUI()
     }
 
     private fun showDisclaimerIfNeeded() {
@@ -53,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                     prefs.edit().putBoolean("AGREED_DISCLAIMER", true).apply()
                 }
                 .setNegativeButton("Exit App") { _, _ ->
-                    finish() // Agar user agree na kare toh app band ho jaye
+                    finish()
                 }
                 .show()
         }
@@ -65,10 +94,8 @@ class MainActivity : AppCompatActivity() {
         val saveBtn = findViewById<Button>(R.id.saveBtn)
         val testBtn = findViewById<Button>(R.id.testBtn)
 
-        // Load previously saved URL
         urlInput.setText(prefs.getString("WEBHOOK_URL", ""))
 
-        // Save URL Button Action
         saveBtn.setOnClickListener {
             val newUrl = urlInput.text.toString().trim()
             if (newUrl.isNotEmpty()) {
@@ -79,7 +106,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Test API Button Action
         testBtn.setOnClickListener {
             val currentUrl = prefs.getString("WEBHOOK_URL", "")
             if (currentUrl.isNullOrEmpty()) {

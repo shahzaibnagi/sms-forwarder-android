@@ -7,9 +7,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
-    <!-- Nayi Background & Network Permissions -->
+    <!-- Background & Network Permissions -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- NEW: Android 13+ ki Notification Permission -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <!-- Notification padhne ki Special Permission -->
     <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" tools:ignore="ProtectedPermissions" />
 
