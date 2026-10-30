@@ -1,3 +1,11 @@
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:080b10,100:1f6feb&height=150&section=header&text=sms-forwarder-android&fontSize=32&fontColor=eaf0f7&animation=fadeIn&desc=Kotlin%20%C2%B7%20SMS%20to%20webhook&descAlignY=76&descSize=14" alt="sms-forwarder-android" />
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=16&pause=1200&color=34D399&center=true&vCenter=true&width=560&lines=Forwards%20SMS%20to%20an%20endpoint%20you%20control;WorkManager%20retries%2C%20foreground%20service" alt="tagline" />
+
+</div>
+
 # SMS Forwarder (Android)
 
 <p align="center">
