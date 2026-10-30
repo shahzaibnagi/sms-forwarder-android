@@ -1,5 +1,12 @@
 # SMS Forwarder (Android)
 
+<p align="center">
+<img src="https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white&style=flat-square" alt="Kotlin" /> <img src="https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white&style=flat-square" alt="Android" /> <img src="https://img.shields.io/badge/WorkManager-4285F4?logo=android&logoColor=white&style=flat-square" alt="WorkManager" />
+<a href="https://github.com/shahzaibnagi/sms-forwarder-android/commits/main"><img src="https://img.shields.io/github/last-commit/shahzaibnagi/sms-forwarder-android?style=flat-square" alt="last commit" /></a>
+<img src="https://img.shields.io/github/license/shahzaibnagi/sms-forwarder-android?style=flat-square" alt="license" />
+</p>
+
+
 Forwards incoming SMS from the device to an HTTP endpoint you control, so a server can react to messages without polling a phone.
 
 Kotlin, no analytics, no third-party SDKs.
